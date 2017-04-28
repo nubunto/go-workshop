@@ -1,0 +1,118 @@
+Go: The Programming Language
+A introduction
+28 Apr 2017
+Tags: workshop, intro
+
+Bruno Panuto
+Software Developer, Daitan
+bl.panuto@gmail.com
+http://blog.nubunto.co/
+@panuto_
+
+* Welcome to Go
+
+This is meant as an introductory workshop/presentation to Go.
+
+We'll take a look at some code, Go's design philosophy and build and play with some demonstrations.
+
+* What we'll be seeing
+
+- Go in production
+- How it all started
+- Basic syntax and program structures: packages, variables, functions
+- The "Less is more" philosophy
+- "Object Orientation"
+- Interfaces
+- Concurrency
+
+* Go in production
+
+: Talk about the companies using Go in production, and what are the challenges they face
+: Mention JuJu in special, since it's one of the biggest
+
+These are some of the companies using Go located in the United States
+
+- Google: Kubernetes, YouTube, dl.google.com and [[https://github.com/golang/go/wiki/GoUsers][a lot of other things, actually]]
+- BBC: [[https://github.com/bbc/mozart-api-common][source]]
+- Canonical: [[https://www.ubuntu.com/cloud/juju][JuJu]], one of the biggest Go projects in the wild.
+- Digital Ocean
+- Netflix
+- New York Times
+- Reddit
+- SpaceX
+- and many, [[https://github.com/golang/go/wiki/GoUsers][many more]]
+
+* Why Go?
+
+Basically, because Rob Pike, Ken Thompson and Robert Griesemer were bored during the compilation of a big C++ project at Google around 2007.
+
+They started from scratch, with C as a starting point, and after a few years of iteration in 2009, open-sourced the first version.
+
+Soon after, Go reached 1.0, with the [[https://golang.org/doc/go1compat][Promise of Compatibility]]. As of this writing, Go is at version 1.8.
+
+* In a nutshell
+
+: mention java.util.concurrent
+
+Go is a compiled, garbage collected, strongly typed programming language with built-in support for concurrency.
+
+This means a few things:
+
+- Deployment of your application is done in a very simple manner (upload the binary and you're done)
+- Your code is compiled and shipped with the full Go runtime, which manages memory allocation for you with the garbage collector
+- Concurrency is supported with control flow primitives from the language
+
+* In a nutshell (tools)
+
+On top of that, Go has a real show of tooling adjacent to the language, including (but not limited to):
+
+- Race detection
+- Code formatting
+- Source code checking
+- Test coverage
+
+* Basic syntax of Go programs
+
+: Compile and run this program
+
+The "Hello World" program, as usual
+
+.code clean.go
+
+: Compile and run this file
+
+Go code is separated in packages, with `main` signalling that this is an executable program.
+The executable has an entry point, which is a `main` function, that receives no arguments and returns nothing.
+
+* Imports
+
+Go also has imports, a mechanism on where you can import packages (in this example, the "fmt" package is in the standard library),
+which then you can call exported functions from the package using it's name. More on exported/unexported identifiers later on.
+
+* Standard library
+
+Go also ships with a very extensive standard library, which you can use to build your programs without any 3rd party packages.
+
+It covers HTTP, JSON, crypto, TCP, email, reflection, text (and HTML) templates, and a [[http://golang.org/pkg][whole bunch of other stuff]]
+
+* Variables and assignments
+
+On to some Go code:
+
+.play variables.go /START OMIT/,/END OMIT/
+
+* Functions
+
+.code functions.go /START OMIT/,/END OMIT/
+
+* Multiple returns
+
+.code functions_2.go /START OMIT/,/END OMIT/
+
+* Naked returns
+
+.code functions_3.go /START OMIT/,/END OMIT/
+
+* Structs (and pointers!)
+
+.play structs.go /START OMIT/,/END OMIT/
