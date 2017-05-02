@@ -1,28 +1,26 @@
 package main
 
-import "fmt"
-
 // START OMIT
+
+import "fmt"
 
 // functions can have multiple return values
 func nameAndAge() (string, int) {
 	return "John Smith", 36
 }
 
-// you can also have naked returns
-// discretion is advised, since this hinders readability in larger functions
-func split(sum int) (x, y int) {
-	x = sum * 4 / 9
-	y = sum - x
-	return
+func printMyName(name string) {
+	fmt.Println("this is my name:", name)
+}
+
+func printMyAge(age int) {
+	fmt.Println("this is my age:", age)
 }
 
 func main() {
 	name, age := nameAndAge()
 	printMyName(name)
-
-	x, y := split(100)
-	fmt.Printf("x: %d -- y: %d", x, y)
+	printMyAge(age)
 }
 
 // END OMIT

@@ -52,8 +52,6 @@ Soon after, Go reached 1.0, with the [[https://golang.org/doc/go1compat][Promise
 
 * In a nutshell
 
-: mention java.util.concurrent
-
 Go is a compiled, garbage collected, strongly typed programming language with built-in support for concurrency.
 
 This means a few things:
@@ -71,23 +69,37 @@ On top of that, Go has a real show of tooling adjacent to the language, includin
 - Source code checking
 - Test coverage
 
+We'll demo the use of those tools.
+
 * Basic syntax of Go programs
 
 : Compile and run this program
 
 The "Hello World" program, as usual
 
-.code clean.go
+.play clean.go
 
 : Compile and run this file
 
-Go code is separated in packages, with `main` signalling that this is an executable program.
-The executable has an entry point, which is a `main` function, that receives no arguments and returns nothing.
+Go code is organized in packages, with `main` signalling that this is an executable program.
 
-* Imports
+* Packages
 
-Go also has imports, a mechanism on where you can import packages (in this example, the "fmt" package is in the standard library),
-which then you can call exported functions from the package using it's name. More on exported/unexported identifiers later on.
+Packages (or modules) are pretty straightforward: pieces of code you can import in your code and use it's exported identifiers.
+
+Packages can contain functions, variables, structs, constants, type definitions, etc. If the identifier starts with an upcase, it is exported.
+
+e.g.
+
+    package foo
+
+    type unexportedType struct {
+        Name string
+    }
+
+    type ExportedType string
+
+If you import this hypothetical `foo` package, your code would be able to refer to `ExportedType`, but not `unexportedType`.
 
 * Standard library
 
@@ -103,16 +115,20 @@ On to some Go code:
 
 * Functions
 
-.code functions.go /START OMIT/,/END OMIT/
+.play functions.go /START OMIT/,/END OMIT/
 
 * Multiple returns
 
-.code functions_2.go /START OMIT/,/END OMIT/
+.play functions_2.go /START OMIT/,/END OMIT/
 
 * Naked returns
 
-.code functions_3.go /START OMIT/,/END OMIT/
+.play functions_3.go /START OMIT/,/END OMIT/
 
 * Structs (and pointers!)
 
 .play structs.go /START OMIT/,/END OMIT/
+
+* Structs (continued)
+
+.play structs_2.go /START OMIT/,/END OMIT/

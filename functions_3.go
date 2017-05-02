@@ -3,6 +3,7 @@ package main
 import "fmt"
 
 // START OMIT
+
 // you can also have naked returns
 // discretion is advised, since this hinders readability in larger functions
 func split(sum int) (x, y int) {
@@ -12,9 +13,6 @@ func split(sum int) (x, y int) {
 }
 
 func main() {
-	name, age := nameAndAge()
-	printMyName(name)
-
 	x, y := split(100)
 	fmt.Printf("x: %d -- y: %d", x, y)
 }
