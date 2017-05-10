@@ -1,13 +1,15 @@
 Go: The Programming Language
 A introduction
 28 Apr 2017
-Tags: workshop, intro
+Tags: golang, workshop, intro
 
 Bruno Panuto
 Software Developer, Daitan
 bl.panuto@gmail.com
 http://blog.nubunto.co/
 @panuto_
+https://github.com/nubunto
+https://github.com/nubunto/golang-workshop
 
 * Welcome to Go
 
@@ -71,6 +73,16 @@ On top of that, Go has a real show of tooling adjacent to the language, includin
 
 We'll demo the use of those tools.
 
+* The GC (and compiler)
+
+The Go GC and the Go compiler are interesting parts, worth mentioning briefly.
+
+The GC is a _concurrent_, tricolor mark-and-sweep. As of Go 1.8, the worst-case for a GC pause is 10ns (yes, 10 nanoseconds).
+
+The compiler can actually spit machine-code for various architectures, making cross-platform a breeze (we'll take a look at that too).
+
+Both are written in Go.
+
 * Basic syntax of Go programs
 
 : Compile and run this program
@@ -89,17 +101,26 @@ Packages (or modules) are pretty straightforward: pieces of code you can import 
 
 Packages can contain functions, variables, structs, constants, type definitions, etc. If the identifier starts with an upcase, it is exported.
 
-e.g.
-
     package foo
 
     type unexportedType struct {
         Name string
     }
 
-    type ExportedType string
+    var ExportedVariable = true
 
-If you import this hypothetical `foo` package, your code would be able to refer to `ExportedType`, but not `unexportedType`.
+* Packages (cont.)
+
+If you import this hypothetical `foo` package, your code would be able to refer to `foo.ExportedVariable`, but not `foo.unexportedType`.
+
+    package main
+
+    import "your/package/foo"
+
+    func main() {
+        fmt.Println(foo.ExportedVariable) // true
+        fmt.Println(foo.unexportedType{Name: "bar"}) // compilation error
+    }
 
 * Standard library
 
@@ -131,4 +152,74 @@ On to some Go code:
 
 * Structs (continued)
 
-.play structs_2.go /START OMIT/,/END OMIT/
+Structs can have methods associated with them.
+
+    type User struct {
+        Name string
+        Age  int
+        // note that the exported/unexported rule works the same way for structs as well!
+    }
+
+    // Save saves the user in a given database
+    // sql support is also in the standard library,
+    // but it's an abstraction. The implementation for a given database
+    // comes from a 3rd party driver.
+    func (u *User) Save(db *sql.DB) error {
+        return db.Exec("INSERT INTO users (name, age) VALUES ($1, $2)", u.Name, u.Age)
+    }
+
+And we can use those methods:
+
+    db, _ := sql.Open("postgres", ...)
+    u := &User{Name: "Something", Age: 45}
+    u.Save(db)
+
+* Error handling
+
+We don't have exceptions in Go. We have multiple returns. Functions that can go wrong often signal this by using two returns:
+
+    httpClient := &http.Client{}
+    res, err := httpClient.Get("GET", "http://google.com", nil)
+    if err != nil {
+        // something went wrong, handle error
+        os.Exit(1)
+    }
+    // do something with the http response
+
+*Always* handle your errors. It is bad practice to ignore them in big programs.
+Checking *every* error, at *every* call, has a verbose effect. But we do get some niceties out of that:
+
+- The control flow is explicit (unlike exceptions)
+- You really have to think about the error you just catched. What should you do? Log it? Propagate it?
+- Errors are values, so you can program them.
+
+* Other control flow primitives
+
+We have defer, which are functions that run when the enclosing functions finishes:
+
+.play defer.go /START OMIT/,/END OMIT/
+
+* Other control flow primitives
+
+We have panic, which unwinds the entire stack trace, and usually terminates your program:
+
+.play panic.go /START OMIT/,/END OMIT/
+
+We have a way of recovering from panics with `recover`, but I won't be getting into that.
+
+* Example time
+
+Now we'll take a look at coded on-the-fly examples:
+
+- Slices (dynamic arrays!)
+- Maps
+- JSON
+- HTTP
+- Concurrency!
+- Cross-compilation
+- The Go tools (gofmt, the race detector)
+- you name it
+
+All the code will be available at GitHub for further appreciation.
+
+* Questions?
