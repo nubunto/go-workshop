@@ -8,8 +8,6 @@ Software Developer, Daitan
 bl.panuto@gmail.com
 http://blog.nubunto.co/
 @panuto_
-https://github.com/nubunto
-https://github.com/nubunto/go-workshop
 
 * Welcome to Go
 
@@ -209,7 +207,7 @@ We have a way of recovering from panics with `recover`, but I won't be getting i
 
 * Example time
 
-Now we'll take a look at coded on-the-fly examples:
+Now we'll take a look at coded-on-the-fly examples:
 
 - Slices (dynamic arrays!)
 - Maps
@@ -221,5 +219,42 @@ Now we'll take a look at coded on-the-fly examples:
 - you name it
 
 All the code will be available at GitHub for further appreciation.
+
+* Slices
+
+- What are arrays
+- What are slices
+- How to deal with them
+
+* Maps
+
+- What are maps
+- How to deal with them
+
+* JSON and HTTP
+
+- Consume an HTTP API, which uses JSON
+- Create an HTTP API, which also uses JSON
+
+* Concurrency
+
+- "Communicating Sequential Processes" by Hoare
+- Goroutines
+- Channels
+
+* Cross-compilation
+
+Real life example!
+
+* The Go Tools
+
+- Showcasing the race detector
+- `gofmt`
+- `govet`
+
+* Links
+
+- My github: https://github.com/nubunto
+- This presentation (and adjacent code): https://github.com/nubunto/go-workshop
 
 * Questions?
