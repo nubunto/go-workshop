@@ -1,6 +1,6 @@
 Go: The Programming Language
 A introduction
-May 17th, 2017
+17 May 2017
 Tags: golang, workshop, intro
 
 Bruno Panuto
@@ -46,7 +46,7 @@ These are some of the companies using Go located in the United States
 
 Basically, because Rob Pike, Ken Thompson and Robert Griesemer were bored during the compilation of a big C++ project at Google around 2007.
 
-They started from scratch, with C as a starting point, and after a few years of iteration in 2009, open-sourced the first version.
+They started from scratch, with C as a reference (rather than C++), and after a few years of iteration in 2009, open-sourced the first version.
 
 Soon after, Go reached 1.0, with the [[https://golang.org/doc/go1compat][Promise of Compatibility]]. As of this writing, Go is at version 1.8.
 
@@ -185,6 +185,27 @@ Checking *every* error, at *every* call, has a verbose effect. But we do get som
 - You really have to think about the error you just catched. What should you do? Log it? Propagate it?
 - Errors are values, so you can program them.
 
+* Errors are just values
+
+An error is actually an interface, defined by the standard library:
+
+    type error interface {
+        Error() string
+    }
+
+It's easy to create custom types that wrap errors, or are errors themselves.
+
+    type statusCodeError struct {
+        StatusCode int
+    }
+    func (m myError) Error() string {
+        return fmt.Sprintf("status code: %d", m.StatusCode)
+    }
+    var error502 error = statusCodeError{ StatusCode: 502 }
+    fmt.Println(error502.Error()) // status code: 502
+
+As you can see, errors are just values, at the end of the day, and can be programmed just as any other value.
+
 * Other control flow primitives
 
 We have defer, which are functions that run when the enclosing functions finishes:
@@ -248,7 +269,7 @@ Real life example!
 
 * Links
 
-- My github: https://github.com/nubunto
-- This presentation (and adjacent code): https://github.com/nubunto/go-workshop
+- [[https://github.com/nubunto][My github]]
+- [[https://github.com/nubunto/go-workshop][This presentation (and adjacent code)]]
 
 * Questions?
