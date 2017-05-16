@@ -1,6 +1,6 @@
 Go: The Programming Language
 A introduction
-28 Apr 2017
+May 17th, 2017
 Tags: golang, workshop, intro
 
 Bruno Panuto
@@ -83,8 +83,6 @@ Both are written in Go.
 
 * Basic syntax of Go programs
 
-: Compile and run this program
-
 The "Hello World" program, as usual
 
 .play clean.go
@@ -124,7 +122,7 @@ If you import this hypothetical `foo` package, your code would be able to refer 
 
 Go also ships with a very extensive standard library, which you can use to build your programs without any 3rd party packages.
 
-It covers HTTP, JSON, crypto, TCP, email, reflection, text (and HTML) templates, and a [[http://golang.org/pkg][whole bunch of other stuff]]
+It covers HTTP, JSON, crypto, TCP, RPC, email, reflection, text (and HTML) templates, and a [[http://golang.org/pkg][whole bunch of other stuff]]
 
 * Variables and assignments
 
@@ -159,9 +157,6 @@ Structs can have methods associated with them.
     }
 
     // Save saves the user in a given database
-    // sql support is also in the standard library,
-    // but it's an abstraction. The implementation for a given database
-    // comes from a 3rd party driver.
     func (u *User) Save(db *sql.DB) error {
         return db.Exec("INSERT INTO users (name, age) VALUES ($1, $2)", u.Name, u.Age)
     }
@@ -176,8 +171,7 @@ And we can use those methods:
 
 We don't have exceptions in Go. We have multiple returns. Functions that can go wrong often signal this by using two returns:
 
-    httpClient := &http.Client{}
-    res, err := httpClient.Get("GET", "http://google.com", nil)
+    res, err := http.Get("http://google.com")
     if err != nil {
         // something went wrong, handle error
         os.Exit(1)
