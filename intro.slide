@@ -77,6 +77,8 @@ The Go GC and the Go compiler are interesting parts, worth mentioning briefly.
 
 The GC is a _concurrent_, tricolor mark-and-sweep. As of Go 1.8, the worst-case for a GC pause is 10ns (yes, 10 nanoseconds).
 
+[[https://making.pusher.com/golangs-real-time-gc-in-theory-and-practice/][Here's a animation of it in practice]]
+
 The compiler can actually spit machine-code for various architectures, making cross-platform a breeze (we'll take a look at that too).
 
 Both are written in Go.
